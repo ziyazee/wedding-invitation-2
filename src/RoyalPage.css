@@ -1,0 +1,1041 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Great+Vibes&family=Lora:ital,wght@0,400;0,500;1,400&display=swap");
+
+.royal-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: hsl(160, 25%, 8%);
+  color: hsl(40, 40%, 72%);
+  perspective: 1600px;
+  perspective-origin: 50% 50%;
+}
+
+.royal-gate__glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(201, 163, 85, 0) 0%, rgba(15, 25, 20, 1) 100%);
+  transition: background 2s ease;
+}
+
+.royal-gate--opening .royal-gate__glow {
+  background: radial-gradient(ellipse at center, rgba(201, 163, 85, 0.12) 0%, rgba(15, 25, 20, 0.18) 100%);
+}
+
+.royal-gate__panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  transform-style: preserve-3d;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(201, 163, 85, 0.08), transparent 28%),
+    linear-gradient(135deg, hsl(160, 30%, 12%) 0%, hsl(160, 25%, 16%) 50%, hsl(160, 20%, 10%) 100%);
+  transition: transform 3.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.royal-gate__panel--left {
+  left: 0;
+  transform-origin: left center;
+  border-right: 1px solid hsl(40, 40%, 35%);
+}
+
+.royal-gate__panel--right {
+  right: 0;
+  transform-origin: right center;
+  border-left: 1px solid hsl(40, 40%, 35%);
+}
+
+.royal-gate--opening .royal-gate__panel--left {
+  transform: rotateY(-85deg);
+}
+
+.royal-gate--opening .royal-gate__panel--right {
+  transform: rotateY(85deg);
+}
+
+.royal-gate__line {
+  position: absolute;
+  top: 32px;
+  bottom: 32px;
+  width: 1px;
+  background: hsl(40, 50%, 55%);
+  opacity: 0.2;
+}
+
+.royal-gate__line--right {
+  right: 24px;
+}
+
+.royal-gate__line--left {
+  left: 24px;
+}
+
+.royal-ornament {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  pointer-events: none;
+}
+
+.royal-ornament path {
+  stroke: hsl(40, 50%, 55%);
+  stroke-width: 0.8;
+  fill: none;
+}
+
+.royal-ornament path:nth-child(2) {
+  stroke-width: 0.5;
+  opacity: 0.5;
+}
+
+.royal-ornament circle {
+  fill: hsl(40, 50%, 55%);
+  opacity: 0.4;
+}
+
+.royal-ornament--door-left-top {
+  top: 16px;
+  right: 16px;
+  opacity: 0.3;
+}
+
+.royal-ornament--door-left-bottom {
+  right: 16px;
+  bottom: 16px;
+  opacity: 0.3;
+  transform: rotate(90deg);
+}
+
+.royal-ornament--door-right-top {
+  top: 16px;
+  left: 16px;
+  opacity: 0.3;
+  transform: scaleX(-1);
+}
+
+.royal-ornament--door-right-bottom {
+  bottom: 16px;
+  left: 16px;
+  opacity: 0.3;
+  transform: scaleX(-1) rotate(90deg);
+}
+
+.royal-seal {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  pointer-events: none;
+  animation: royalSealFloat 2.5s ease-in-out infinite;
+  transition: opacity 420ms ease, transform 420ms ease;
+}
+
+.royal-seal__button {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: clamp(120px, 28vw, 180px);
+  aspect-ratio: 1;
+  border: 1px solid hsl(40, 50%, 45%);
+  border-radius: 50%;
+  cursor: pointer;
+  pointer-events: auto;
+  background:
+    radial-gradient(circle at 35% 25%, hsl(160, 20%, 28%), hsl(160, 25%, 15%) 64%);
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.5),
+    0 0 0 10px rgba(201, 163, 85, 0.04),
+    0 0 60px rgba(201, 163, 85, 0.14),
+    inset 0 2px 4px rgba(255, 255, 255, 0.15),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.3),
+    inset 0 0 30px rgba(0, 0, 0, 0.42);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.royal-seal__button::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 30%, hsl(160, 20%, 28%), hsl(160, 25%, 15%));
+  box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.1);
+}
+
+.royal-seal__button::after {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border: 2px solid hsl(40, 50%, 65%);
+  border-radius: 50%;
+  opacity: 0.3;
+}
+
+.royal-gate:not(.royal-gate--opening):hover .royal-seal__button {
+  transform: scale(1.08);
+}
+
+.royal-gate:not(.royal-gate--opening).royal-gate--pressed .royal-seal__button,
+.royal-gate:not(.royal-gate--opening):active .royal-seal__button {
+  transform: scale(0.95);
+  box-shadow:
+    0 4px 18px rgba(0, 0, 0, 0.55),
+    0 0 0 14px rgba(201, 163, 85, 0.06),
+    0 0 76px rgba(201, 163, 85, 0.24),
+    inset 0 1px 4px rgba(255, 255, 255, 0.12),
+    inset 0 -3px 9px rgba(0, 0, 0, 0.38);
+}
+
+.royal-seal__shine {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.08) 50%, transparent 60%);
+  animation: royalSealShine 6s linear infinite;
+}
+
+.royal-seal__letter,
+.royal-seal__text {
+  position: relative;
+  z-index: 1;
+  color: hsl(40, 50%, 65%);
+}
+
+.royal-seal__letter {
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(34px, 9vw, 52px);
+  font-weight: 700;
+  line-height: 1;
+  text-shadow: 0 0 18px rgba(201, 163, 85, 0.32);
+}
+
+.royal-seal__text {
+  font-family: "Cinzel", serif;
+  font-size: clamp(8px, 1.8vw, 10px);
+  letter-spacing: 0.2em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.royal-gate--opening .royal-seal {
+  opacity: 0;
+  transform: scale(1.18);
+  animation: none;
+}
+
+.royal-gate__burst {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.royal-gate__burst i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--spark-size);
+  height: var(--spark-size);
+  border-radius: 50%;
+  background: hsl(40, 55%, 62%);
+  animation: royalBurst 1.5s ease-out forwards;
+  animation-delay: calc((var(--i) % 5) * 60ms);
+}
+
+@keyframes royalTapPulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes royalSealFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes royalSealShine {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes royalBurst {
+  to {
+    opacity: 0;
+    transform: translate(var(--tx), var(--ty)) scale(0);
+  }
+}
+
+.royal-noir {
+  --royal-bg: hsl(160, 25%, 8%);
+  --royal-bg-2: hsl(160, 22%, 10%);
+  --royal-emerald: hsl(160, 28%, 16%);
+  --royal-gold: hsl(40, 50%, 55%);
+  --royal-gold-soft: hsl(40, 40%, 72%);
+  --royal-muted: hsl(40, 25%, 50%);
+  --royal-cream: hsl(40, 30%, 85%);
+  --royal-paper: hsl(38, 42%, 92%);
+
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: var(--royal-bg);
+  color: var(--royal-cream);
+  font-family: "Lora", serif;
+}
+
+.royal-noir :focus-visible {
+  outline: 3px solid hsla(40, 50%, 55%, 0.65);
+  outline-offset: 4px;
+}
+
+.royal-audio {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid hsla(40, 50%, 55%, 0.5);
+  border-radius: 50%;
+  background: hsla(160, 25%, 8%, 0.78);
+  color: var(--royal-gold-soft);
+  box-shadow: 0 0 28px hsla(40, 50%, 55%, 0.14);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+}
+
+.royal-audio:hover {
+  background: var(--royal-gold);
+  color: hsl(160, 25%, 8%);
+}
+
+.royal-stars {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.royal-stars span {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--royal-gold-soft);
+  box-shadow: 0 0 16px hsla(40, 50%, 65%, 0.8);
+  animation: royalTwinkle 3.4s ease-in-out infinite;
+  animation-delay: calc(var(--i) * -130ms);
+}
+
+@keyframes royalTwinkle {
+  0%,
+  100% {
+    opacity: 0.18;
+    transform: translateY(0) scale(0.8);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translateY(-14px) scale(1.25);
+  }
+}
+
+.royal-invite {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 84px 24px;
+  text-align: center;
+}
+
+.royal-invite__wash {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 40%, hsla(40, 50%, 50%, 0.06), transparent 60%),
+    radial-gradient(circle at 20% 20%, hsla(160, 45%, 24%, 0.4), transparent 32%),
+    radial-gradient(circle at 85% 84%, hsla(40, 45%, 42%, 0.08), transparent 28%);
+  pointer-events: none;
+}
+
+.royal-ornament--top-left {
+  top: 24px;
+  left: 24px;
+  z-index: 3;
+  opacity: 0.25;
+}
+
+.royal-ornament--top-right {
+  top: 24px;
+  right: 24px;
+  z-index: 3;
+  opacity: 0.25;
+  transform: scaleX(-1);
+}
+
+.royal-ornament--bottom-left {
+  bottom: 24px;
+  left: 24px;
+  z-index: 3;
+  opacity: 0.25;
+  transform: scaleY(-1);
+}
+
+.royal-ornament--bottom-right {
+  right: 24px;
+  bottom: 24px;
+  z-index: 3;
+  opacity: 0.25;
+  transform: scale(-1);
+}
+
+.royal-invite__rule {
+  position: absolute;
+  left: 50%;
+  z-index: 3;
+  width: min(80vw, 320px);
+  transform: translateX(-50%);
+}
+
+.royal-invite__rule--top {
+  top: clamp(62px, 10vw, 82px);
+}
+
+.royal-invite__rule--bottom {
+  bottom: clamp(88px, 14vw, 116px);
+}
+
+.royal-invite__rule span {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.royal-invite__rule span::before,
+.royal-invite__rule span::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(40, 40%, 45%));
+}
+
+.royal-invite__rule span::after {
+  background: linear-gradient(270deg, transparent, hsl(40, 40%, 45%));
+}
+
+.royal-invite__rule span {
+  color: hsl(40, 40%, 45%);
+}
+
+.royal-invite__rule span::marker {
+  content: "";
+}
+
+.royal-invite__rule span {
+  position: relative;
+}
+
+.royal-invite__rule span::after {
+  order: 2;
+}
+
+.royal-invite__rule span::before {
+  order: 0;
+}
+
+.royal-invite__rule span {
+  justify-content: center;
+}
+
+.royal-invite__rule span {
+  --diamond-size: 8px;
+}
+
+.royal-invite__rule span {
+  min-height: var(--diamond-size);
+}
+
+.royal-invite__rule span {
+  background:
+    linear-gradient(45deg, transparent calc(50% - 4px), hsl(40, 40%, 45%) calc(50% - 4px), hsl(40, 40%, 45%) calc(50% + 4px), transparent calc(50% + 4px))
+    center / var(--diamond-size) var(--diamond-size) no-repeat;
+}
+
+.royal-invite__content {
+  position: relative;
+  z-index: 4;
+  max-width: 560px;
+  animation: royalHeroIn 1.2s ease-out both;
+}
+
+.royal-kicker {
+  margin: 0;
+  color: hsl(40, 35%, 55%);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 12px;
+  letter-spacing: 0.4em;
+  line-height: 1.8;
+  text-transform: uppercase;
+}
+
+.royal-invite h1 {
+  margin: 36px 0 32px;
+  color: hsl(40, 40%, 72%);
+  font-family: "Cinzel", serif;
+  font-size: clamp(38px, 9vw, 68px);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  line-height: 1.08;
+  text-transform: uppercase;
+}
+
+.royal-invite h1 span {
+  display: block;
+}
+
+.royal-invite h1 em {
+  display: block;
+  width: 176px;
+  height: 18px;
+  margin: 20px auto;
+  background:
+    linear-gradient(90deg, transparent, hsl(40, 40%, 50%), transparent) center / 100% 1px no-repeat;
+  position: relative;
+}
+
+.royal-invite h1 em::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border: 1px solid hsl(40, 40%, 50%);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.royal-request {
+  margin: 0;
+  color: hsl(40, 25%, 50%);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 15px;
+  letter-spacing: 0.15em;
+}
+
+.royal-scroll {
+  position: absolute;
+  bottom: 28px;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+  color: hsl(40, 25%, 45%);
+  font-family: "Cinzel", serif;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  animation: royalScrollCue 2.5s ease-in-out infinite;
+}
+
+.royal-scroll b {
+  color: hsl(40, 30%, 50%);
+  font-size: 18px;
+  line-height: 1;
+}
+
+@keyframes royalHeroIn {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes royalScrollCue {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(7px);
+  }
+}
+
+.royal-welcome {
+  position: relative;
+  z-index: 2;
+  padding: clamp(76px, 10vw, 120px) 24px;
+  text-align: center;
+  background:
+    linear-gradient(to bottom, hsl(160, 25%, 8%) 0%, hsl(160, 25%, 8%) 18%, hsl(40, 10%, 49%) 55%, hsl(38, 42%, 90%) 100%);
+}
+
+.royal-welcome p {
+  max-width: 720px;
+  margin: 28px auto;
+  color: hsl(40, 35%, 86%);
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(27px, 5vw, 42px);
+  font-style: italic;
+  line-height: 1.45;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);
+}
+
+.royal-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  max-width: 360px;
+  margin: 0 auto;
+  color: hsl(40, 50%, 55%);
+}
+
+.royal-divider span {
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, transparent, currentColor);
+}
+
+.royal-divider span:last-child {
+  background: linear-gradient(270deg, transparent, currentColor);
+}
+
+.royal-feature {
+  position: relative;
+  z-index: 2;
+  padding: clamp(72px, 9vw, 118px) 24px;
+  text-align: center;
+}
+
+.royal-feature__heading {
+  max-width: 680px;
+  margin: 0 auto 36px;
+}
+
+.royal-feature h2,
+.royal-details h2,
+.royal-gallery h2,
+.royal-guestbook h2 {
+  margin: 10px 0 0;
+  color: hsl(40, 40%, 72%);
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(34px, 6vw, 56px);
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.royal-feature--scratch {
+  background: hsl(38, 42%, 90%);
+}
+
+.royal-feature--scratch .royal-kicker,
+.royal-feature--scratch h2 {
+  color: hsl(40, 70%, 38%);
+}
+
+.royal-scratch-card {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(100%, 620px);
+  min-height: 330px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid hsl(40, 70%, 38%);
+  background:
+    radial-gradient(circle at 30% 20%, hsla(38, 55%, 98%, 0.9), transparent 34%),
+    linear-gradient(135deg, hsl(38, 50%, 93%), hsl(38, 45%, 88%));
+  box-shadow: 0 24px 70px rgba(60, 25, 5, 0.22);
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.royal-scratch-card__date {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  color: hsl(24, 30%, 14%);
+}
+
+.royal-scratch-card__date span,
+.royal-scratch-card__date small {
+  font-family: "Cinzel", serif;
+  font-size: 13px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.royal-scratch-card__date strong {
+  color: hsl(40, 70%, 38%);
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(100px, 22vw, 150px);
+  font-weight: 500;
+  line-height: 0.86;
+}
+
+.royal-scratch-card__foil {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255, 240, 190, 0.9), transparent 24%),
+    radial-gradient(circle at 70% 70%, rgba(212, 168, 74, 0.6), transparent 24%),
+    linear-gradient(135deg, #f6dc97, #d4a84a 50%, #8a6620);
+  color: hsl(24, 30%, 10%);
+  font-family: "Cinzel", serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  transition: opacity 260ms ease;
+}
+
+.royal-scratch-card__foil i {
+  position: absolute;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.42);
+  mix-blend-mode: overlay;
+  transform: translate(-50%, -50%);
+}
+
+.royal-scratch-card.is-revealed .royal-scratch-card__foil {
+  pointer-events: none;
+}
+
+.royal-feature--countdown {
+  background:
+    radial-gradient(ellipse at 50% 20%, hsla(40, 50%, 50%, 0.1), transparent 56%),
+    hsl(160, 25%, 8%);
+}
+
+.royal-clock {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  width: min(100%, 780px);
+  margin: 32px auto 0;
+}
+
+.royal-clock div {
+  min-height: 138px;
+  padding: 24px 12px;
+  border: 1px solid hsla(40, 50%, 55%, 0.28);
+  background: hsla(160, 20%, 14%, 0.52);
+  box-shadow: inset 0 0 0 1px hsla(40, 40%, 72%, 0.04);
+}
+
+.royal-clock strong {
+  display: block;
+  color: hsl(40, 40%, 72%);
+  font-family: "Cinzel", serif;
+  font-size: clamp(40px, 8vw, 68px);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.royal-clock span {
+  display: block;
+  margin-top: 12px;
+  color: hsl(40, 25%, 50%);
+  font-family: "Cinzel", serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.royal-details {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: hsl(160, 25%, 8%);
+  border-block: 1px solid hsla(40, 50%, 55%, 0.18);
+}
+
+.royal-detail-card {
+  min-height: 420px;
+  padding: clamp(42px, 7vw, 82px);
+  background:
+    radial-gradient(circle at 10% 8%, hsla(40, 50%, 50%, 0.08), transparent 32%),
+    linear-gradient(135deg, hsl(160, 28%, 12%), hsl(160, 24%, 8%));
+}
+
+.royal-detail-card .material-symbols-outlined {
+  margin-bottom: 28px;
+  color: hsl(40, 50%, 55%);
+  font-size: 34px;
+}
+
+.royal-detail-card p:not(.royal-kicker) {
+  margin: 18px 0 0;
+  color: hsl(40, 25%, 60%);
+  line-height: 1.75;
+}
+
+.royal-detail-card a {
+  display: inline-flex;
+  margin-top: 28px;
+  padding: 14px 20px;
+  border: 1px solid hsl(40, 50%, 55%);
+  color: hsl(40, 40%, 72%);
+  font-family: "Cinzel", serif;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.royal-detail-card a:hover {
+  background: hsl(40, 50%, 55%);
+  color: hsl(160, 25%, 8%);
+}
+
+.royal-gallery {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(260px, 0.84fr) minmax(300px, 1fr);
+  align-items: center;
+  gap: clamp(28px, 7vw, 88px);
+  padding: clamp(74px, 9vw, 124px) clamp(22px, 7vw, 92px);
+  background: hsl(38, 42%, 90%);
+  color: hsl(24, 30%, 14%);
+}
+
+.royal-gallery__frame {
+  position: relative;
+  min-height: 520px;
+  border: 1px solid hsl(40, 70%, 38%);
+  overflow: hidden;
+  background: hsl(160, 25%, 8%);
+  box-shadow: 0 24px 70px rgba(60, 25, 5, 0.2);
+}
+
+.royal-gallery__frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 900ms ease, transform 4.2s ease;
+}
+
+.royal-gallery__frame img.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.royal-gallery__copy {
+  max-width: 620px;
+}
+
+.royal-gallery h2,
+.royal-gallery .royal-kicker {
+  color: hsl(40, 70%, 38%);
+}
+
+.royal-gallery p:not(.royal-kicker) {
+  margin-top: 22px;
+  color: hsl(24, 22%, 26%);
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.royal-guestbook {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: hsla(40, 50%, 55%, 0.18);
+}
+
+.royal-guestbook__attendance,
+.royal-guestbook__message {
+  min-height: 390px;
+  padding: clamp(42px, 7vw, 82px);
+  background:
+    radial-gradient(circle at 100% 0%, hsla(40, 50%, 55%, 0.08), transparent 28%),
+    hsl(160, 25%, 8%);
+}
+
+.royal-guestbook__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.royal-guestbook button {
+  min-height: 48px;
+  padding: 13px 20px;
+  border: 1px solid hsl(40, 50%, 55%);
+  background: hsl(40, 50%, 55%);
+  color: hsl(160, 25%, 8%);
+  font-family: "Cinzel", serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.royal-guestbook__actions button:last-child {
+  background: transparent;
+  color: hsl(40, 40%, 72%);
+}
+
+.royal-guestbook textarea {
+  width: 100%;
+  margin: 28px 0 14px;
+  padding: 16px;
+  border: 1px solid hsla(40, 50%, 55%, 0.36);
+  background: hsla(160, 20%, 14%, 0.62);
+  color: hsl(40, 30%, 85%);
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.royal-guestbook__note {
+  margin: 28px 0 0;
+  color: hsl(40, 40%, 72%);
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.royal-noir__footer {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 64px 24px;
+  text-align: center;
+  background: hsl(160, 25%, 6%);
+}
+
+.royal-noir__footer span {
+  color: hsl(40, 25%, 50%);
+  font-family: "Cinzel", serif;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.royal-noir__footer strong {
+  color: hsl(40, 40%, 72%);
+  font-family: "Cinzel", serif;
+  font-size: clamp(30px, 7vw, 56px);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 860px) {
+  .royal-details,
+  .royal-gallery,
+  .royal-guestbook {
+    grid-template-columns: 1fr;
+  }
+
+  .royal-gallery__frame {
+    min-height: 440px;
+  }
+}
+
+@media (max-width: 620px) {
+  .royal-ornament {
+    width: 58px;
+    height: 58px;
+  }
+
+  .royal-clock {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .royal-clock div {
+    min-height: 118px;
+  }
+
+  .royal-scratch-card {
+    min-height: 280px;
+  }
+
+  .royal-gallery__frame {
+    min-height: 360px;
+  }
+
+  .royal-invite h1 {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 430px) {
+  .royal-audio {
+    top: 14px;
+    right: 14px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .royal-guestbook__actions {
+    flex-direction: column;
+  }
+
+  .royal-guestbook button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .royal-gate__panel,
+  .royal-seal__text,
+  .royal-gate__burst i,
+  .royal-stars span,
+  .royal-scroll,
+  .royal-invite__content,
+  .royal-gallery__frame img {
+    animation: none;
+    transition: none;
+  }
+}
